@@ -3,9 +3,9 @@
 #include <vector>
 #include <regex>
 
-std::vector<std::string> extractordinals(const std::string& text) {
+std::vector<std::string> extract_ordinals(const std::string& text) {
     std::vector<std::string> ordinals;
-    std::regex ordinals_regex("\\b(first|second|third|fourth)\\b", std::regex::icase);
+    std::regex ordinals_regex("\\b(?:\\d+)(?:st|nd|rd|th)\\b", std::regex::icase);
     std::smatch match;
 
     std::string::const_iterator search_start(text.cbegin());
@@ -21,9 +21,9 @@ int main() {
     std::cout << "Enter your text: ";
     std::getline(std::cin, text);
 
-    std::vector<std::string> ordinals = extractordinals(text);
+    std::vector<std::string> ordinals = extract_ordinals(text);
 
-    std::cout << "Our ordinal numbers in the text are:" << std::endl;
+    std::cout << "Ordinal numbers in the text are:" << std::endl;
     for (const auto& ordinal : ordinals) {
         std::cout << ordinal << std::endl;
     }
