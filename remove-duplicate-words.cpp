@@ -1,33 +1,28 @@
 #include <iostream>
 #include <string>
+#include <set> // Include the set library
 
-char *removeDuplicate(char str[], int n) {
-    int index = -1;
-    for (int i = 0; i < n; ++i) {
-        int j;
-        for (j = 0; j < index; ++j) {
-            if (str[i] == str[j]) {
-                break;
-            }
-        }
-        if (j == index) {
-            str[++index] = str[i];
-        }
+std::string removeDuplicate(const std::string& str) {
+    std::set<char> uniqueChars; // ստեղծել set պահելու համար ունիկալ characters
+    for (char ch : str) {
+        uniqueChars.insert(ch); //Տեղադրեք յուրաքանչյուր նիշ insert-ի մեջ
     }
-    str[++index] = '\0';
-    return str;
+
+    // Ստեղծեք նոր տող   unique characters-ով   set-ի մեջ
+    std::string result;
+    for (char ch : uniqueChars) {
+        result += ch;
+    }
+    return result;
 }
 
 int main() {
     std::string str;
     std::cout << "Enter your text: ";
     std::getline(std::cin, str);
-    
-    char charArray[str.length() + 1];
-    std::copy(str.begin(), str.end(), charArray);
-    charArray[str.length()] = '\0';
 
-    int n = str.length();
-    std::cout << "String after removing duplicates: " << removeDuplicate(charArray, n) << std::endl;
+    std::string result = removeDuplicate(str);
+    
+    std::cout << "String after removing duplicates: " << result << std::endl;
     return 0;
 }
